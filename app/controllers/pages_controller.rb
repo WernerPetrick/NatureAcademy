@@ -10,22 +10,12 @@ class PagesController < ApplicationController
     page_data = fetch(query)
     
     @page_content = page_data['result'].first['content']
-    
-    document = Sanity::Document.find(id: "9f3efb35-452a-466c-ad61-9eae901b2daf")
-    
-    puts "This is document: #{document}"
-    # portable_text = PortableText::Serializer.new(content: @page_content, to: :html)
-    
-
-    
-    # html_output = portable_text.render.call
-    
-    # puts "This is portable_text: #{html_output}"
   
-    # render html: html_output.html_safe
+    @portable_text = PortableText::Serializer.new(content: @page_content, to: :html)
+    
+    puts "This is portable text: #{@portable_text.inspect}"
   end
   
-
   private
 
   def fetch(query, params = {})
